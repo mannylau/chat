@@ -11,3 +11,4 @@ Known Issues that will be addressed:
     Shutdown Mechanism
     Receiving Duplicate Messages if more than 100 characters are typed
     Improper Shutdown causes problems to connected clients
+    Receiving a message will overwrite the input field. 
