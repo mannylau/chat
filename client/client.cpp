@@ -23,7 +23,6 @@ void ChatClient::connect_to_server() {
     hints.ai_flags = AI_PASSIVE; // fill in my IP for me.
 
     // Change this to be the IP of the server.
-    //if ((getaddrinfo("ec2-35-161-207-165.us-west-2.compute.amazonaws.com", myPort, &hints, &servinfo)) != 0) {
     if ((getaddrinfo(nullptr, myPort, &hints, &servinfo)) != 0) {
         std::cout << "Failed to get address info" << std::endl;
         return;
