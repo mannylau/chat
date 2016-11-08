@@ -68,7 +68,7 @@ class ChatServer {
         std::mutex c_mutex_;
         std::mutex m_mutex_;
         std::vector<std::tuple<char*,int>> client_fds_;
-        std::deque<std::string> messages_queue_;
         std::vector<std::thread> client_threads_;
+        std::deque<std::string> messages_queue_;
 
 };

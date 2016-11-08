@@ -1,5 +1,5 @@
-# To compile the chat client : g++ -std=c++14 main.cpp client.cpp -o client
-# To compile the chat server : g++ -std=c++14 main.cpp server.cpp -o server
+To compile the chat client : g++ -std=c++14 main.cpp client.cpp -o client
+To compile the chat server : g++ -std=c++14 main.cpp server.cpp -o server
 
 You may need to include the -lpthread flag when compiling.
 

@@ -50,7 +50,7 @@ class ChatClient {
         };
 
         void set_name(std::string & name) {
-            username_ = name;
+            username_ = std::move(name);
         }
 
         void set_fd(const int & fd) {

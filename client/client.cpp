@@ -20,9 +20,11 @@ void ChatClient::connect_to_server() {
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC; // AF_INET or AF_INET6 to force version
     hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = AI_PASSIVE; // fill in my IP for me.
+    hints.ai_flags = AI_PASSIVE; // fills in IP automatically
 
-    // Change this to be the IP of the server.
+    std::cout << "client: connecting..." << std::endl;
+
+    // change nullptr to the domain of the server.
     if ((getaddrinfo(nullptr, myPort, &hints, &servinfo)) != 0) {
         std::cout << "Failed to get address info" << std::endl;
         return;
@@ -47,9 +49,8 @@ void ChatClient::connect_to_server() {
         return;
     }
 
-    freeaddrinfo(servinfo); // done with servinfo.
+    freeaddrinfo(servinfo); 
 
-    std::cout << "client: connecting..." << std::endl;
 
     set_fd(connect_fd);
 
@@ -97,12 +98,13 @@ void ChatClient::send_message() {
 
     while(true) {
 
-        std::cout << name << ": ";
+        std::cout << username_ << ": ";
 
         std::getline(std::cin, message);
 
         if (status_ == Status::OFFLINE) return;
-        message = name + ": " + message;
+
+        message = username_ + ": " + message;
         last_message_sent_ = message;
 
         int mlength = message.length()+1;

@@ -28,7 +28,7 @@ void ChatServer::accepting() {
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC; // AF_INET or AF_INET6 to force version
     hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = AI_PASSIVE; // fill in my IP for me.
+    hints.ai_flags = AI_PASSIVE; // automatically fill in IP
 
     if (getaddrinfo(nullptr, myPort, &hints, &servinfo) != 0) {
         std::cout << "Failed to get address info" << std::endl;
@@ -43,13 +43,13 @@ void ChatServer::accepting() {
             continue;
         }
 
-        // Reuse address if already in use.
+        // Reuse address if already in use. Can happen if there is an improper shutdown.
         if (setsockopt(accepting_fd, SOL_SOCKET, SO_REUSEADDR, &yes,sizeof yes) == -1) {
             std::cout << "Failed to set socket options" << std::endl;
             return;
         } 
 
-        // Make the accept call non blocking, so other threads can run.
+        // Make the accept call non blocking, so it can join with other threads on shutdown.
         fcntl(accepting_fd, F_SETFL, O_NONBLOCK);
 
         // Bind the socket to a port.
@@ -70,7 +70,6 @@ void ChatServer::accepting() {
     inet_ntop(p->ai_family, &p->ai_addr, ipstr, sizeof ipstr);
     std::cout << "My IP is : " << ipstr << std::endl;
 
-    // good practice to free address info.
     freeaddrinfo(servinfo);
 
     // Start listening for connections.
@@ -162,7 +161,7 @@ void ChatServer::send_message_to_clients() {
                     }
                 }
 
-                // display chat message received.a
+                // display chat message received.
                 // std::cout << messages_queue_.front() << std::endl;
 
                 // Current shutdown mechanism gives client's the ability to shutdown. By typing Shutdown!.
