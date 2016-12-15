@@ -178,7 +178,6 @@ void ChatServer::send_message_to_clients() {
     }
 }
 
-
 void ChatServer::shutdown() {
 
     for (auto tuple : client_fds_) {

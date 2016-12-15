@@ -2,7 +2,7 @@
     server.h
 
     A chat server that works by accepting TCP connections on port 5000.
-    There 3 threads that are running.
+    There are 3 threads that are running.
 
     1. An accepting thread that accepts new TCP connections.
     2. A receiving thread which receives messages from clients.
