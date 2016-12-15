@@ -36,11 +36,11 @@ void ChatClient::connect_to_server() {
             std::cout << "Failed to get socket file descriptor" << std::endl;
             continue;
         }
-         if (connect(connect_fd, p->ai_addr, p->ai_addrlen) == -1) {
-             close(connect_fd);
-             std::cout << "Failed to connect" << std::endl;
-             continue;
-         }
+        if (connect(connect_fd, p->ai_addr, p->ai_addrlen) == -1) {
+            close(connect_fd);
+            std::cout << "Failed to connect" << std::endl;
+            continue;
+        }
         break;
     }
 
@@ -50,7 +50,6 @@ void ChatClient::connect_to_server() {
     }
 
     freeaddrinfo(servinfo); 
-
 
     set_fd(connect_fd);
 
